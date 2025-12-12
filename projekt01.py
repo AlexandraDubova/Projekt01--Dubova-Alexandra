@@ -155,10 +155,10 @@ class Bone(pygame.sprite.Sprite):
          # enemy/taken logic
         self.taken_by_enemy = False
         self.take_time = 0
-        self.hold_duration = 300   # ms - jak dlouho enemy drží kost před hodem
+        self.hold_duration = 300   # ms - jak dlouho enemy drží bone před hodem
         self.taken_dir = 1
 
-        # označení první kosti
+        # označení první bonei
         self.is_first = False
 
         self.bottom = self.rect
@@ -167,15 +167,15 @@ class Bone(pygame.sprite.Sprite):
 
     def update(self, ball_trig):
 
-                # pokud je kost držená enemy, následuje enemy a po uplynutí hold_duration je hozena
+                # pokud je bone držená enemy, následuje enemy a po uplynutí hold_duration je hozena
         if self.taken_by_enemy:
             # následuj enemy pokud máme enemy_rect
             if enemy_rect is not None:
-                hold_x = enemy_rect.centerx + (20 * self.taken_dir)  # offset, aby kost nebyla přesně ve středu
+                hold_x = enemy_rect.centerx + (20 * self.taken_dir)  # offset, aby bone nebyla přesně ve středu
                 hold_y = enemy_rect.centery - 10  # mírně nad enemy
                 self.rect.center = (hold_x, hold_y)
 
-            # když uplynul čas držení, kost se "hodí"
+            # když uplynul čas držení, bone se "hodí"
             if pygame.time.get_ticks() - self.take_time > self.hold_duration:
                 self.taken_by_enemy = False
                 # pohození: nastavit rychlost do směru enemy a lehký oblouk nahoru
@@ -250,7 +250,7 @@ class Bone(pygame.sprite.Sprite):
             if below.colliderect(lad) and not self.falling and not self.check_lad:
                 self.check_lad = True
                 already_collided = True
-                # pokud je to první kost, výrazně zvýšíme šanci, že sjede po žebříku
+                # pokud je to první bone, výrazně zvýšíme šanci, že sjede po žebříku
                 if self.is_first:
                     if random.randint(0, 3) == 0:   # 25% chance on ladder checks -> rychleji dolů
                         self.falling = True
@@ -579,6 +579,7 @@ while run:
         bone_count = random.randint(0, 120)
         bone_time = bone_count - bone_spawn_time
         bone = Bone(270, 270)
+    
         if not first_bone_taken:
             bone.is_first = True
             first_bone_taken = True
