@@ -102,11 +102,10 @@ def draw_basket():
     section_width * 3 + 8,
     section_height *  2+ 8
 )
-     # DEBUG – můžeš pak smazat
+     # DEBUG
     pygame.draw.rect(screen, "red", hitbox, 2)
 
 
-    # pokud je basket_flipped True, vykresli druhý obrázek (převrácený)
     if basket_flipped:
         screen.blit(dog_basket2_img, basket_rect.topleft)
         # pokud chceme, aby se po době obrátil zpět, kontrolujeme duration:
@@ -162,7 +161,6 @@ while run:
 
         bones.add(bone)
 
-    # 🔥 JEDNORÁZOVÝ TRIGGER KOŠÍKU
     if bone.is_first and not basket_flipped:
         basket_flipped = True
         basket_flip_start = pygame.time.get_ticks()
@@ -198,7 +196,6 @@ while run:
 
 
 
-    # --- handle ball spawn ---
     MAX_BALLS = 6
     if ball_trigger:
         if len(balls) < MAX_BALLS:
@@ -209,7 +206,6 @@ while run:
             print("DEBUG: spawn skipped (too many balls)")
         ball_trigger = False
 
-    # --- update & draw balls ---
     for b in list(balls):
         b.check_climb()
         b.update()
@@ -217,7 +213,6 @@ while run:
 
     player.update(plats)
     player.draw(screen)
-    
     
 
     for event in pygame.event.get():
@@ -260,6 +255,7 @@ while run:
     pygame.display.flip()
 
 pygame.quit()
+
 
 
 
