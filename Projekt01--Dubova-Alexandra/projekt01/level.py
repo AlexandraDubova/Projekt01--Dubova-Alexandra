@@ -1,7 +1,6 @@
 from settings import section_width, section_height, slope
 
-# ---- ZÁKLAD LEVELU ----
-# pevná výška, jako dřív
+
 start_y = 30 * section_height
 
 row2_y = start_y - 4 * section_height
@@ -66,3 +65,4 @@ levels = [{
         (10, row6_y - 17 * slope, 2), (12, -5, 13), (10, -5, 13)
     ]
 }]
+
