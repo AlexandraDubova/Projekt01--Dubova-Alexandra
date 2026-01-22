@@ -8,7 +8,6 @@ from level import (
     row4_top, row5_top, row6_y
 )
 
-# ⚠️ DOČASNÉ – bude odstraněno později
 screen = None
 plats = []
 lads = []
@@ -101,24 +100,22 @@ class Bone(pygame.sprite.Sprite):
 
 
 
-                # pokud je bone držená enemy, následuje enemy a po uplynutí hold_duration je hozena
+  
         if self.taken_by_enemy:
-            # následuj enemy pokud máme enemy_rect
+
             if enemy_rect is not None:
                 hold_x = enemy_rect.centerx + (20 * self.taken_dir)  # offset, aby bone nebyla přesně ve středu
                 hold_y = enemy_rect.centery - 10  # mírně nad enemy
                 self.rect.center = (hold_x, hold_y)
 
-            # když uplynul čas držení, bone se "hodí"
             if pygame.time.get_ticks() - self.take_time > self.hold_duration:
                 self.taken_by_enemy = False
-                # pohození: nastavit rychlost do směru enemy a lehký oblouk nahoru
+            
                 self.x_change = 5 * self.taken_dir
                 self.y_change = -5
                 self.falling = False
                 self.check_lad = False
 
-            # během držení neprovádíme další update logiku
             self.bottom = pygame.rect.Rect((self.rect[0], self.rect.bottom), (self.rect[2], 3))
             return False
         
@@ -173,9 +170,9 @@ class Bone(pygame.sprite.Sprite):
             if below.colliderect(lad) and not self.falling and not self.check_lad:
                 self.check_lad = True
                 already_collided = True
-                # pokud je to první bone, výrazně zvýšíme šanci, že sjede po žebříku
+           
                 if self.is_first:
-                    if random.randint(0, 3) == 0:   # 25% chance on ladder checks -> rychleji dolů
+                    if random.randint(0, 3) == 0: 
                         self.falling = True
                         self.y_change = 6
                 else:
@@ -214,13 +211,11 @@ class Ball(pygame.sprite.Sprite):
             self.y_change += 0.25
 
         
-        # pokud narazí na platformu, přestat padat
         for i in range(len(plats)):
             if self.rect.colliderect(plats[i]):
                 self.climbing = False
                 self.y_change = -4
 
-        # animace a změna směru analogicky k originálu
         if self.count < 15:
             self.count += 1
         else:
@@ -230,7 +225,7 @@ class Ball(pygame.sprite.Sprite):
                 self.x_count += 1
             else:
                 self.x_count = 0
-                # uprav rozsahy podle řady, aby se střídal pohyb jako originál
+      
                 if self.x_change > 0:
                     if self.row in [1, 3, 5]:
                         self.x_max = random.randint(3, 6)
@@ -243,7 +238,7 @@ class Ball(pygame.sprite.Sprite):
                         self.x_max = random.randint(3, 6)
                 self.x_change *= -1
 
-        # vybrat správný obrázek podle směru a fáze
+    
         if self.pos == 1:
             if self.x_change > 0:
                 self.image = ball_img
@@ -275,4 +270,5 @@ class Ball(pygame.sprite.Sprite):
         if self.rect.bottom < row6_y:
             self.row = 6
         else:
+
             self.row = 1
