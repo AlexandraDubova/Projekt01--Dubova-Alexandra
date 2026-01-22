@@ -25,7 +25,7 @@ class Player(pygame.sprite.Sprite):
         self.ukazovatko_box = self.rect
         self.rect.center = (x_pos, y_pos)
         self.bottom = pygame.rect.Rect(self.rect.left, self.rect.bottom - 20, self.rect.width, 20)
-        self.state = "idle"  # idle / run / jump / climb
+        self.state = "idle" 
 
     def update(self, plats):
         self.landed = False
@@ -130,6 +130,7 @@ class Player(pygame.sprite.Sprite):
                                            (self.rect[2] - 30, self.rect[3] - 10))
             self.ukazovatko_box = pygame.rect.Rect((self.hitbox[0], self.hitbox[1] - section_height),
                                                (self.hitbox[2], section_height))
+
 
 
 
