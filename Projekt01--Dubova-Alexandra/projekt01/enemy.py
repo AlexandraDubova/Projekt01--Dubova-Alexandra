@@ -10,10 +10,11 @@ def draw_enemy(screen, section_width, section_height, row6_y):
 
     screen.blit(img, (enemy_x, enemy_y))
 
-    # vracíme rect, aby ho main mohl použít
+ 
     return pygame.Rect(
         enemy_x,
         enemy_y,
         img.get_width(),
         img.get_height()
     )
+
